@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
-  ImageComponent,
-  TouchableOpacity,
   Animated,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -40,41 +37,17 @@ export default class FloatingButton extends Component {
       ],
     };
 
-    const pinStyle = {
+    const translateY = value => ({
       transform: [
         {scale: this.state.animation},
         {
           translateY: this.state.animation.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, -80],
+            outputRange: [0, value],
           }),
         },
       ],
-    };
-
-    const likeStyle = {
-      transform: [
-        {scale: this.state.animation},
-        {
-          translateY: this.state.animation.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, -140],
-          }),
-        },
-      ],
-    };
-
-    const heartStyle = {
-      transform: [
-        {scale: this.state.animation},
-        {
-          translateY: this.state.animation.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, -200],
-          }),
-        },
-      ],
-    };
+    });
 
     return (
       <View>
@@ -83,9 +56,7 @@ export default class FloatingButton extends Component {
         <ButtonContainer
           onPress={this.toggleMenu}
           rotation={rotation}
-          pinStyle={pinStyle}
-          likeStyle={likeStyle}
-          heartStyle={heartStyle}
+          translateY={translateY}
         />
       </View>
     );
@@ -128,60 +99,49 @@ const ImageContainer = () => (
   />
 );
 
-const ButtonContainer = ({
-  onPress,
-  rotation,
-  pinStyle,
-  likeStyle,
-  heartStyle,
-}) => (
+const ButtonContainer = ({onPress, rotation, translateY}) => (
   <View style={{alignItems: 'center'}}>
-    <TouchableWithoutFeedback>
-      <Animated.View style={[styles.button, styles.secondary, heartStyle]}>
-        <Image
-          source={{
-            uri:
-              'https://res.cloudinary.com/dd8plasfr/image/upload/v1576023597/RNRandDAppImage/hearts_bqcd6g.png',
-          }}
-          style={{width: 20, height: 20}}
-        />
-      </Animated.View>
-    </TouchableWithoutFeedback>
+    <Button
+      imgUri="https://res.cloudinary.com/dd8plasfr/image/upload/v1576023597/RNRandDAppImage/hearts_bqcd6g.png"
+      translateY={translateY(-200)}
+    />
 
-    <TouchableWithoutFeedback>
-      <Animated.View style={[styles.button, styles.secondary, likeStyle]}>
-        <Image
-          source={{
-            uri:
-              'https://res.cloudinary.com/dd8plasfr/image/upload/v1576023597/RNRandDAppImage/thumbs-up-hand-symbol_sdlqer.png',
-          }}
-          style={{width: 20, height: 20}}
-        />
-      </Animated.View>
-    </TouchableWithoutFeedback>
+    <Button
+      imgUri="https://res.cloudinary.com/dd8plasfr/image/upload/v1576023597/RNRandDAppImage/thumbs-up-hand-symbol_sdlqer.png"
+      translateY={translateY(-140)}
+    />
 
-    <TouchableWithoutFeedback>
-      <Animated.View style={[styles.button, styles.secondary, pinStyle]}>
-        <Image
-          source={{
-            uri:
-              'https://res.cloudinary.com/dd8plasfr/image/upload/v1576023597/RNRandDAppImage/pin_wu5spb.png',
-          }}
-          style={{width: 20, height: 20}}
-        />
-      </Animated.View>
-    </TouchableWithoutFeedback>
+    <Button
+      imgUri="https://res.cloudinary.com/dd8plasfr/image/upload/v1576023597/RNRandDAppImage/pin_wu5spb.png"
+      translateY={translateY(-80)}
+    />
 
-    <TouchableWithoutFeedback onPress={onPress}>
-      <Animated.View style={[styles.button, rotation]}>
-        <Image
-          source={{
-            uri:
-              'https://res.cloudinary.com/dd8plasfr/image/upload/v1576023596/RNRandDAppImage/close_jsh5hr.png',
-          }}
-          style={{width: 15, height: 15}}
-        />
-      </Animated.View>
-    </TouchableWithoutFeedback>
+    <Button
+      main
+      imgUri="https://res.cloudinary.com/dd8plasfr/image/upload/v1576023596/RNRandDAppImage/close_jsh5hr.png"
+      rotation={rotation}
+      onPress={onPress}
+    />
   </View>
 );
+
+const Button = ({main, imgUri, rotation, translateY, onPress}) => {
+  const buttonStyles = main
+    ? [styles.button, rotation]
+    : [styles.button, styles.secondary, translateY];
+
+  const iconStyle = main ? {width: 15, height: 15} : {width: 20, height: 20};
+
+  return (
+    <TouchableWithoutFeedback onPress={onPress}>
+      <Animated.View style={buttonStyles}>
+        <Image
+          source={{
+            uri: imgUri,
+          }}
+          style={iconStyle}
+        />
+      </Animated.View>
+    </TouchableWithoutFeedback>
+  );
+};
