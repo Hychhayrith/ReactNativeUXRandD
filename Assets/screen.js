@@ -11,4 +11,10 @@ export const data = [
     label: 'PanGesture',
     screen: 'Animation',
   },
+  {
+    image:
+      'https://res.cloudinary.com/dd8plasfr/image/upload/v1576023590/RNRandDAppImage/communicate_1_efwsiv.png',
+    label: 'Float Button',
+    screen: 'FloatingButton',
+  },
 ];

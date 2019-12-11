@@ -4,7 +4,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {Image} from 'react-native-elements';
 
-import {HomeScreen, Animation} from '../Screens';
+import {HomeScreen, Animation, FloatingButton} from '../Screens';
 
 const HomeStack = createStackNavigator(
   {
@@ -18,6 +18,12 @@ const HomeStack = createStackNavigator(
       screen: Animation,
       navigationOptions: {
         title: 'Animation',
+      },
+    },
+    FloatingButton: {
+      screen: FloatingButton,
+      navigationOptions: {
+        title: 'Floating Button',
       },
     },
   },
