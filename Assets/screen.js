@@ -17,4 +17,10 @@ export const data = [
     label: 'Float Button',
     screen: 'FloatingButton',
   },
+  {
+    image:
+      'https://res.cloudinary.com/dd8plasfr/image/upload/v1576232469/RNRandDAppImage/clapping_1_wycozi.png',
+    label: 'Medium Clapping Animation',
+    screen: 'MediumClap',
+  },
 ];

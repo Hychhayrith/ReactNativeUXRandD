@@ -4,7 +4,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {Image} from 'react-native-elements';
 
-import {HomeScreen, Animation, FloatingButton} from '../Screens';
+import {HomeScreen, Animation, FloatingButton, MediumClap} from '../Screens';
 
 const HomeStack = createStackNavigator(
   {
@@ -24,6 +24,12 @@ const HomeStack = createStackNavigator(
       screen: FloatingButton,
       navigationOptions: {
         title: 'Floating Button',
+      },
+    },
+    MediumClap: {
+      screen: MediumClap,
+      navigationOptions: {
+        title: 'Medium Like Clapping Animation',
       },
     },
   },
